@@ -1,0 +1,86 @@
+---
+layout: default
+title: IAIRO Projects
+---
+
+{% assign active_projects = site.projects | where: "status", "active" | sort: "order" %}
+{% assign archived_projects = site.projects | where: "status", "archived" | sort: "order" %}
+
+<article class="wiki-article">
+  <p class="wiki-jump">Jump to: <a href="#navigation-menu">navigation</a>, <a href="#search">search</a></p>
+  <h1>{{ site.organization.name }} WIKI</h1>
+
+  <p>
+    <a href="{{ site.organization.website }}" target="_blank" rel="noopener">{{ site.organization.name }}</a>
+    is a research organization focused on {{ site.organization.tagline | downcase }}.
+  </p>
+
+  <p>{{ site.hero.subheading }}</p>
+
+  <div class="wiki-infobox">
+    <table>
+      <tbody>
+        <tr>
+          <th colspan="2">{{ site.organization.name }} Research Projects</th>
+        </tr>
+        <tr>
+          <td>Configured by</td>
+          <td>{{ site.organization.name | downcase }}</td>
+        </tr>
+        <tr>
+          <td>Web</td>
+          <td><a href="{{ site.organization.website }}" target="_blank" rel="noopener">{{ site.organization.website }}</a></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="wiki-toc" id="navigation-menu">
+    <h2>Contents</h2>
+    <ol>
+      <li><a href="#projects-and-themes">Projects and Themes</a></li>
+      <li><a href="#active-projects">Active Projects</a></li>
+      <li><a href="#archived-projects">Archived Projects and Resources</a></li>
+      <li><a href="{{ '/publications/' | relative_url }}">Publications by Project</a></li>
+      <li><a href="#instructions-for-authors">Instructions for Authors</a></li>
+    </ol>
+  </div>
+
+  <h2 id="projects-and-themes">Projects and Themes</h2>
+
+  <h3 id="active-projects">Active Projects</h3>
+  {% if active_projects.size > 0 %}
+    <ul class="wiki-list">
+      {% for project in active_projects %}
+        <li data-searchable="project" data-title="{{ project.title }}" data-area="{{ project.area }}" data-summary="{{ project.summary }}">
+          <a href="{{ project.url | relative_url }}">{{ project.title }}</a>
+          {% if project.duration %}, {{ project.duration }}{% endif %}
+          {% if project.summary %}: {{ project.summary }}{% endif %}
+        </li>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <p>No active projects found.</p>
+  {% endif %}
+
+  <h3 id="archived-projects">Archived Projects and Resources</h3>
+  {% if archived_projects.size > 0 %}
+    <ul class="wiki-list">
+      {% for project in archived_projects %}
+        <li data-searchable="project" data-title="{{ project.title }}" data-area="{{ project.area }}" data-summary="{{ project.summary }}">
+          <a href="{{ project.url | relative_url }}">{{ project.title }}</a>
+          {% if project.duration %}, {{ project.duration }}{% endif %}
+          {% if project.summary %}: {{ project.summary }}{% endif %}
+        </li>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <p>No archived projects found.</p>
+  {% endif %}
+
+  <h2 id="instructions-for-authors">Instructions for Authors</h2>
+  <p>
+    Create or edit files in the <strong>_projects</strong> folder. Each file should include project front matter
+    fields such as title, summary, area, status, and duration.
+  </p>
+</article>

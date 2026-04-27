@@ -1,0 +1,44 @@
+---
+layout: default
+---
+
+<article class="wiki-article project-article">
+  {% assign project_paper_key = page.paper_key | default: page.slug %}
+  <p class="wiki-jump">Jump to: <a href="#project-overview">overview</a>, <a href="#project-details">details</a>{% if site.data.papers.papers[project_paper_key] %}, <a href="#publications">publications</a>{% endif %}</p>
+  <h1>{{ page.title }}</h1>
+
+  {% if page.project_image %}
+    <figure class="project-hero-image-wrap">
+      <img class="project-hero-image" src="{{ page.project_image | relative_url }}" alt="{{ page.project_image_alt | default: page.title }}">
+      {% if page.project_image_caption %}
+        <figcaption>{{ page.project_image_caption }}</figcaption>
+      {% endif %}
+    </figure>
+  {% endif %}
+
+  <div class="wiki-toc">
+    <h2>Project Information</h2>
+    <ul>
+      <li><strong>Area:</strong> {{ page.area }}</li>
+      <li><strong>Status:</strong> {{ page.status | capitalize }}</li>
+      <li><strong>Duration:</strong> {{ page.duration }}</li>
+      {% if page.research_lead %}
+        <li><strong>Research Lead:</strong> {{ page.research_lead }}</li>
+      {% endif %}
+      {% if page.external_link %}
+        <li><strong>External link:</strong> <a href="{{ page.external_link }}" target="_blank" rel="noopener">Project Resource</a></li>
+      {% endif %}
+    </ul>
+  </div>
+
+  <h2 id="project-overview">Overview</h2>
+  <p>{{ page.summary }}</p>
+
+  <h2 id="project-details">Details</h2>
+  {{ content }}
+
+  <h2 id="publications">Publications</h2>
+  <p><a href="{{ '/publications/' | relative_url }}#{{ project_paper_key }}">View all publications for this project</a></p>
+
+  <p><a href="{{ '/' | relative_url }}#projects-and-themes">Return to Projects and Themes</a></p>
+</article>

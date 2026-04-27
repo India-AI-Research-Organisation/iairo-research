@@ -1,0 +1,25 @@
+# IAIRO Research Papers by Project
+# Format: Add papers by project ID and year
+# To add: Uncomment and fill in details
+
+papers:
+  pal:
+    - year: 2026
+      items:
+        - title: "PAL: Personal Adaptive Learner"
+          authors: "Megha Chakraborty, Darssan L. Eswaramoorthi, Madhur Thareja, Het Riteshkumar Shah, Finlay Palmer, Aryaman Bahl, Michelle A. Ihetu, Amit Sheth"
+          venue: "AAAI Demo, 2026"
+          url: "https://arxiv.org/abs/2604.13017"
+          abstract: "PAL is an AI-powered platform that transforms lecture videos into interactive learning experiences by adapting question difficulty in real time and generating personalized summaries."
+
+  enterprise-ai:
+  foundation-ai:
+  sustainability:
+
+# Usage in Jekyll:
+# {% for year in site.data.papers.papers[project_id] | sort | reverse %}
+#   <h3>{{ year[0] }}</h3>
+#   {% for paper in year[1] %}
+#     <div>{{ paper.title }} - {{ paper.venue }}</div>
+#   {% endfor %}
+# {% endfor %}

@@ -1,0 +1,18 @@
+---
+layout: null
+permalink: /search.json
+---
+[
+{% for project in site.projects %}
+  {
+    "id": {{ forloop.index0 }},
+    "title": {{ project.title | jsonify }},
+    "url": {{ project.url | relative_url | jsonify }},
+    "area": {{ project.area | default: "" | jsonify }},
+    "status": {{ project.status | default: "" | jsonify }},
+    "duration": {{ project.duration | default: "" | jsonify }},
+    "summary": {{ project.summary | default: "" | jsonify }},
+    "content": {{ project.content | strip_html | normalize_whitespace | jsonify }}
+  }{% unless forloop.last %},{% endunless %}
+{% endfor %}
+]

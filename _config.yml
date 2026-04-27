@@ -1,0 +1,48 @@
+title: IAIRO Research Projects
+email: contact@iairo.ai
+description: >-
+  IAIRO Research Projects Hub. Indian AI Research Organisation — building India's frontier AI capabilities through research, ecosystem bridging, and deployment of AI solutions for Pharma, Health, Sustainability, and Education.
+baseurl: ""
+url: ""
+
+organization:
+  name: IAIRO
+  website: https://iairo.ai/
+  tagline: India's Engine for Sovereign AI Leadership
+  location: Gift City, Gujarat, India
+  mission: "Build foundational and applied AI for India's most critical sectors, bridge researchers and industry, and deploy prototypes to production-scale solutions."
+  logo: /assets/images/IAIRO.jpeg
+
+hero:
+  heading: IAIRO Research Projects
+  subheading: A curated view of ongoing and completed work across enterprise and foundation AI.
+  cta_text: Visit IAIRO
+  cta_link: https://iairo.ai/
+
+collections:
+  projects:
+    output: true
+    permalink: /projects/:path/
+
+defaults:
+  - scope:
+      path: ""
+      type: "projects"
+    values:
+      layout: project
+      status: active
+      featured: false
+
+markdown: kramdown
+highlighter: rouge
+permalink: pretty
+
+plugins:
+  - jekyll-feed
+
+exclude:
+  - README.md
+  - Gemfile
+  - Gemfile.lock
+  - vendor
+  - vendor/bundle

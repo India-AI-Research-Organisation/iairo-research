@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{% if page.title %}{{ page.title }} | {% endif %}{{ site.title }}</title>
+    <meta name="description" content="{{ site.description }}">
+    <link rel="stylesheet" href="{{ '/assets/css/main.css' | relative_url }}">
+  </head>
+  <body class="wiki-body">
+    <div class="wiki-topbar">
+      <div class="page-wrap wiki-topbar-inner">
+        <ul class="top-links">
+          <li><a href="{{ '/' | relative_url }}">Page</a></li>
+          <li><a href="{{ '/' | relative_url }}#projects-and-themes">Projects and Themes</a></li>
+          <li><a href="{{ site.organization.website }}" target="_blank" rel="noopener">Main Site</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <header class="wiki-header page-wrap">
+      <div class="wiki-header-inner">
+        {% if site.organization.logo %}
+          <img src="{{ site.organization.logo | relative_url }}" alt="{{ site.organization.name }}" class="wiki-logo">
+        {% endif %}
+        <a class="wiki-brand" href="{{ '/' | relative_url }}">{{ site.organization.name }} WIKI</a>
+      </div>
+      <form class="wiki-search" action="{{ '/search/' | relative_url }}" method="get" autocomplete="off">
+        <label for="wiki-search-input" class="sr-only">Search</label>
+        <input id="wiki-search-input" type="text" name="q" placeholder="Search projects" aria-label="Search projects" data-index-url="{{ '/search.json' | relative_url }}" data-results-url="{{ '/search/' | relative_url }}">
+        <div id="wiki-search-results" class="wiki-search-results" aria-live="polite" hidden></div>
+      </form>
+    </header>
+
+    <div class="page-wrap wiki-shell">
+      <aside class="wiki-sidebar" aria-label="Sidebar">
+        <div class="sidebar-box">
+          <h2>Navigation</h2>
+          <ul>
+            <li><a href="{{ '/' | relative_url }}">Main Page</a></li>
+            <li><a href="{{ '/' | relative_url }}#projects-and-themes">Projects and Themes</a></li>
+            <li><a href="{{ '/' | relative_url }}#active-projects">Active Projects</a></li>
+            <li><a href="{{ '/' | relative_url }}#archived-projects">Archived Projects</a></li>
+            <li><a href="{{ '/publications/' | relative_url }}">Publications</a></li>
+          </ul>
+        </div>
+        <div class="sidebar-box">
+          <h2>IAIRO</h2>
+          <ul>
+            <li><a href="{{ site.organization.website }}" target="_blank" rel="noopener">Official Website</a></li>
+            <li><a href="mailto:{{ site.email }}">Contact</a></li>
+          </ul>
+        </div>
+      </aside>
+
+      <main class="wiki-main" id="content">
+        {{ content }}
+      </main>
+    </div>
+
+    <footer class="wiki-footer">
+      <div class="page-wrap">
+        <p>This page was generated with Jekyll for {{ site.organization.name }}.</p>
+        <p><a href="{{ site.organization.website }}" target="_blank" rel="noopener">{{ site.organization.website }}</a> · {{ site.organization.tagline }}</p>
+      </div>
+    </footer>
+    <script src="https://unpkg.com/lunr/lunr.min.js" defer></script>
+    <script src="{{ '/assets/js/search.js' | relative_url }}" defer></script>
+  </body>
+</html>

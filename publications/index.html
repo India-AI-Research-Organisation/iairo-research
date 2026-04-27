@@ -1,0 +1,61 @@
+---
+layout: default
+title: Publications
+---
+
+<article class="wiki-article">
+  <h1>Publications by Project</h1>
+  <p class="wiki-jump">Year-wise publications mapped to each research project.</p>
+
+  <div class="wiki-toc">
+    <h2>Project Index</h2>
+    <ul>
+      {% for project in site.projects %}
+        {% assign paper_key = project.paper_key | default: project.slug %}
+        <li><a href="#{{ paper_key }}">{{ project.title }}</a></li>
+      {% endfor %}
+    </ul>
+  </div>
+
+  {% for project in site.projects %}
+    {% assign paper_key = project.paper_key | default: project.slug %}
+    {% assign project_papers = site.data.papers.papers[paper_key] %}
+
+    <section id="{{ paper_key }}">
+      <h2><a href="{{ project.url | relative_url }}">{{ project.title }}</a></h2>
+      <p>
+        {% if project.area %}{{ project.area }}{% endif %}
+        {% if project.duration %} · {{ project.duration }}{% endif %}
+      </p>
+
+      {% if project_papers %}
+        {% assign by_year = project_papers | sort: 'year' | reverse %}
+        {% for year_block in by_year %}
+          <h3>{{ year_block.year }}</h3>
+          <div class="papers-list">
+            {% for paper in year_block.items %}
+              <div class="paper-entry">
+                <p class="paper-title">
+                  {% if paper.url %}
+                    <a href="{{ paper.url }}" target="_blank" rel="noopener">{{ paper.title }}</a>
+                  {% else %}
+                    {{ paper.title }}
+                  {% endif %}
+                </p>
+                <p class="paper-meta">
+                  <span class="paper-authors">{{ paper.authors }}</span> —
+                  <span class="paper-venue"><em>{{ paper.venue }}</em></span>
+                </p>
+                {% if paper.abstract %}
+                  <p class="paper-abstract">{{ paper.abstract }}</p>
+                {% endif %}
+              </div>
+            {% endfor %}
+          </div>
+        {% endfor %}
+      {% else %}
+        <p>No publications listed yet for this project.</p>
+      {% endif %}
+    </section>
+  {% endfor %}
+</article>
