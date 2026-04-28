@@ -33,8 +33,6 @@ defaults:
       status: active
       featured: false
 
-theme: minima
-
 markdown: kramdown
 highlighter: rouge
 permalink: pretty
