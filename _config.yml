@@ -39,7 +39,7 @@ markdown: kramdown
 highlighter: rouge
 permalink: pretty
 
-theme: minima
+theme: jekyll-theme-minima
 
 plugins:
   - jekyll-feed
