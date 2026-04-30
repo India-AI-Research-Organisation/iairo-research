@@ -12,6 +12,91 @@ papers:
           url: "https://arxiv.org/abs/2604.13017"
           abstract: "PAL is an AI-powered platform that transforms lecture videos into interactive learning experiences by adapting question difficulty in real time and generating personalized summaries."
 
+  vlm-alignment-safety-mmkg:
+    - year: 2025
+      items:
+        - title: "The Visual Counter Turing Test (VCT²): A Benchmark for Evaluating AI-Generated Image Detection and the Visual AI Index (V_AI)"
+          authors: "Imanpour, Borah, Bajpai, Ghosh, Sankepally, Abdullah, Kosaraju, Dixit, Aziz, Biswas, Jain, Chadha, Wang, Sheth, Das"
+          venue: "IJCNLP-AACL 2025"
+          url: "https://arxiv.org/abs/2411.16754"
+          abstract: "Introduces a 166K-image benchmark across six state-of-the-art text-to-image systems to stress-test AI-generated image detectors. Reveals that 17 leading detection models achieve only ~58% accuracy in zero-shot settings, exposing a critical generalization gap and motivating the Visual AI Index (V_AI) as a standardized detectability metric."
+
+        - title: "AAAI 2025 Tutorial: Hallucination in Large Multimodal Models"
+          authors: "Rawte, Chadha, Sheth, Das"
+          venue: "AAAI 2025"
+          url: "https://vr25.github.io/aaai25-hallucination-tutorial/"
+          abstract: "A full-day tutorial covering hallucination theory, detection, and mitigation across text, image, and video modalities, with practical black-box and gray-box techniques. Bridges the gap between emerging research and deployment, drawing directly from the group's ViBe, VCT², and survey work."
+
+    - year: 2024
+      items:
+        - title: "ViBe: A Text-to-Video Benchmark for Evaluating Hallucination in Large Multimodal Models"
+          authors: "Rawte, Jain, Sinha, Kaushik, Bansal, Vishwanath, Jain, Reganti, Jain, Chadha, Sheth, Das"
+          venue: "arXiv 2024"
+          url: "https://arxiv.org/abs/2411.10867"
+          abstract: "The first large-scale benchmark specifically for hallucination in text-to-video generation, covering 3,782 human-annotated videos from ten T2V models. Defines five hallucination types — Vanishing Subject, Omission Error, Numeric Variability, Subject Dysmorphia, and Visual Incongruity — and establishes classifier baselines for automated detection."
+
+        - title: "A Comprehensive Survey of Hallucination Mitigation Techniques in Large Language Models"
+          authors: "Tonmoy, Zaman, Jain, Rani, Rawte, Chadha, Das"
+          venue: "arXiv 2024"
+          url: "https://arxiv.org/abs/2401.01313"
+          abstract: "Systematically reviews over 30 mitigation techniques spanning decoding strategies, retrieval augmentation, self-consistency methods, and fine-tuning approaches. Provides a practical taxonomy for practitioners selecting mitigation strategies based on deployment constraints."
+
+        - title: '"Sorry, Come Again?" Prompting — Enhancing Comprehension and Diminishing Hallucination with [PAUSE]-Injected Optimal Paraphrasing'
+          authors: "Rawte, Tonmoy, Zaman, Priya, Chadha, Sheth, Das"
+          venue: "arXiv 2024"
+          url: "https://arxiv.org/abs/2403.18976"
+          abstract: "Proposes injecting deliberate [PAUSE] tokens into prompts alongside optimal paraphrasing to reduce comprehension failures and hallucination without any model retraining. Demonstrates consistent gains across multiple LLMs on factuality benchmarks, offering a lightweight inference-time intervention."
+
+        - title: "FACTOID: Factual Entailment for Hallucination Detection"
+          authors: "Rawte, Tonmoy, Rajbangshi, Nag, Chadha, Sheth, Das"
+          venue: "arXiv 2024"
+          url: "https://arxiv.org/abs/2403.19113"
+          abstract: "Frames hallucination detection as a factual entailment problem, using long-context embeddings and multi-task learning to identify unsupported claims in model outputs. Achieves a 40% average accuracy improvement over leading textual entailment baselines on the FACTOID benchmark."
+
+        - title: "A Survey of Hallucination in Large Foundation Models"
+          authors: "Rawte, Sheth, Das"
+          venue: "arXiv 2024"
+          url: "https://arxiv.org/abs/2309.05922"
+          abstract: "A broad survey covering hallucination phenomena across language, vision, and multimodal foundation models. Synthesizes causes, detection methods, and mitigation approaches into a unified framework applicable across modalities."
+
+        - title: "Visual Causal Question Answering with Knowledge Graph Link Prediction"
+          authors: "Jaimini, Henson, Sheth"
+          venue: "AIISC 2024"
+          url: "https://scholarcommons.sc.edu/cgi/viewcontent.cgi?article=1634&context=aii_fac_pub"
+          abstract: "Grounds visual question answering in causal knowledge graphs by treating answer inference as a link prediction problem over a structured scene representation. This approach improves explainability and reduces spurious correlations that purely neural VQA models rely on."
+
+        - title: "Causal Knowledge Graph for Scene Understanding in Autonomous Driving"
+          authors: "Jaimini, Henson, Sheth"
+          venue: "AIISC 2024"
+          url: "https://ceur-ws.org/Vol-3828/paper43.pdf"
+          abstract: "Builds causal knowledge graphs from driving scenes to provide structured, causally-grounded representations for autonomous perception systems. Addresses reliability gaps in neural scene understanding by encoding object relationships and causal dependencies explicitly rather than learning them implicitly from data."
+
+    - year: 2023
+      items:
+        - title: "The Troubling Emergence of Hallucination in Large Language Models — An Extensive Definition, Quantification, and Prescriptive Remediations"
+          authors: "Rawte, Chakraborty, Pathak, Sarkar, Tonmoy, Chadha, Sheth, Das"
+          venue: "EMNLP 2023"
+          url: "https://arxiv.org/abs/2310.04988"
+          abstract: "Offers the first fine-grained taxonomy of LLM hallucination organized by degree (mild, moderate, alarming), orientation (factual mirage vs. silver lining), and intrinsic vs. extrinsic type. Goes beyond detection to prescribe targeted remediation strategies for each hallucination category."
+
+        - title: "Exploring the Relationship between LLM Hallucinations and Prompt Linguistic Nuances: Readability, Formality, and Concreteness"
+          authors: "Rawte, Priya, Tonmoy, Zaman, Sheth, Das"
+          venue: "arXiv 2023"
+          url: "https://arxiv.org/abs/2309.11064"
+          abstract: "Empirically investigates how surface-level prompt properties — readability level, formality register, and noun concreteness — affect hallucination rates in LLMs. Finds that low-readability and highly abstract prompts consistently increase hallucination, with implications for prompt engineering and safety evaluation."
+
+        - title: "IMAGINATOR: Pre-Trained Image+Text Joint Embeddings using Word-Level Grounding of Images"
+          authors: "Krishna, Suryavardan, Mishra, Ramamoorthy, Patwa, Chakraborty, Chadha, Das, Sheth"
+          venue: "ICON 2023"
+          url: "https://arxiv.org/abs/2305.10438"
+          abstract: "Extends the distributional hypothesis to the visual modality by training joint image+text embeddings on 1M image-text pairs at the object level. IMAGINATOR captures object-object co-location, word-object co-location, and word-object correlation — enabling visual analogy reasoning that convolution-based embeddings like VGGNet cannot perform."
+
+        - title: "Counter Turing Test (CT²): AI-Generated Text Detection is Not as Easy as You May Think — Introducing AI Detectability Index (ADI)"
+          authors: "Chakraborty, Tonmoy, Zaman, Gautam, Kumar, Sharma, Barman, Gupta, Jain, Chadha, Sheth, Das"
+          venue: "EMNLP 2023"
+          url: "https://arxiv.org/abs/2310.05030"
+          abstract: "Challenges the assumption that current AI-generated text detectors are reliable, systematically showing that state-of-the-art methods fail under distributional shift. Introduces the AI Detectability Index (ADI) as a standardized metric for measuring how detectable a given model's outputs are — the textual precursor to VCT²."
+
   enterprise-ai:
   foundation-ai:
   sustainability:
