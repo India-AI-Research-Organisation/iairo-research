@@ -97,6 +97,21 @@ papers:
           url: "https://arxiv.org/abs/2310.05030"
           abstract: "Challenges the assumption that current AI-generated text detectors are reliable, systematically showing that state-of-the-art methods fail under distributional shift. Introduces the AI Detectability Index (ADI) as a standardized metric for measuring how detectable a given model's outputs are — the textual precursor to VCT²."
 
+  embodied-ai:
+    - year: 2026
+      items:
+        - title: "AIGen: An Adversarial Approach for Instruction Generation in Vision-Language Navigation"
+          authors: "Rawal, Niyati, Roberto Bigazzi, Lorenzo Baraldi, Rita Cucchiara"
+          venue: "IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR) 2024"
+          url: "https://arxiv.org/abs/2404.09435"
+          abstract: "Proposes an adversarial framework for generating diverse, contextually appropriate instructions in vision-language navigation tasks. AIGen leverages instruction generation to create varied training signals that improve agent robustness and generalization to unseen environments."
+
+        - title: "UNMuTe: Unifying Navigation and Multimodal Dialogue-like Text Generation"
+          authors: "Rawal, Niyati, Roberto Bigazzi, Lorenzo Baraldi, Rita Cucchiara"
+          venue: "arXiv 2024"
+          url: "https://arxiv.org/abs/2408.04423"
+          abstract: "Unifies vision-language navigation and dialogue-based text generation in a single framework, enabling agents to communicate and navigate simultaneously. The model generates natural language descriptions of navigation actions and reasons about multimodal context to improve embodied understanding."
+
   enterprise-ai:
   foundation-ai:
   sustainability:
