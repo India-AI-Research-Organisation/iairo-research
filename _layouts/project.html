@@ -23,8 +23,17 @@ layout: default
       <li><strong>Status:</strong> {{ page.status | capitalize }}</li>
       <li><strong>Duration:</strong> {{ page.duration }}</li>
       {% if page.research_lead %}
-        <li><strong>Research Lead:</strong> {{ page.research_lead }}</li>
+         <li><strong>Research Lead:</strong> {{ page.research_lead }}</li>
       {% endif %}
+        {% if page.contact %}
+          <li><strong>Contact:</strong>
+            {% if page.contact contains "@" %}
+              <a href="mailto:{{ page.contact }}">{{ page.contact }}</a>
+            {% else %}
+              {{ page.contact }}
+            {% endif %}
+          </li>
+        {% endif %}
       {% if page.external_link %}
         <li><strong>External link:</strong> <a href="{{ page.external_link }}" target="_blank" rel="noopener">Project Resource</a></li>
       {% endif %}

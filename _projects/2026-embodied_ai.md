@@ -8,6 +8,7 @@ duration: 2026 - Present
 order: 20
 paper_key: embodied-ai
 external_link: https://iairo.ai/
+contact: niyati.rawal@iairo.ai
 ---
 
 This initiative explores a hybrid framework that combines vision-language representations with structured semantic graphs to enable agents to reason, navigate, and act in complex environments.

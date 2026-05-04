@@ -7,6 +7,7 @@ featured: false
 duration: 2026 - Present
 order: 20
 paper_key: context-preservation-scene-graphs
+contact: anushka.pawar@iairo.ai
 ---
 
 This project investigates video continuation for long-form generation by using scene graphs as a training-free structural anchor. The goal is to reduce exposure-bias-driven drift, preserve object identity, and maintain relational consistency across continuously generated frames.

@@ -46,6 +46,7 @@ area: Robotics
 status: active
 featured: false
 duration: 2026 - Present
+ contact: contact@iairo.ai
 order: 30
 external_link: https://example.com
 ---
