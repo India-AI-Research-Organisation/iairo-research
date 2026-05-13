@@ -1,0 +1,43 @@
+{% assign project = include.page %}
+
+<aside class="project-meta-card">
+  <p class="project-meta-label">Project information</p>
+  <h2>Research Dossier</h2>
+
+  <div class="project-meta-list">
+    <div class="project-meta-item">
+      <span>Area</span>
+      <strong>{{ project.area }}</strong>
+    </div>
+    <div class="project-meta-item">
+      <span>Status</span>
+      <strong>{{ project.status | capitalize }}</strong>
+    </div>
+    <div class="project-meta-item">
+      <span>Duration</span>
+      <strong>{{ project.duration }}</strong>
+    </div>
+    {% if project.research_lead %}
+      <div class="project-meta-item">
+        <span>Research Lead</span>
+        <strong>{{ project.research_lead }}</strong>
+      </div>
+    {% endif %}
+    {% if project.contact %}
+      <div class="project-meta-item">
+        <span>Contact</span>
+        <strong>
+          {% if project.contact contains "@" %}
+            <a href="mailto:{{ project.contact }}">{{ project.contact }}</a>
+          {% else %}
+            {{ project.contact }}
+          {% endif %}
+        </strong>
+      </div>
+    {% endif %}
+  </div>
+
+  {% if project.external_link %}
+    <a class="button-secondary project-meta-link" href="{{ project.external_link }}" target="_blank" rel="noopener">Open project resource</a>
+  {% endif %}
+</aside>

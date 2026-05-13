@@ -5,10 +5,52 @@
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>{% if page.title %}{{ page.title }} | {% endif %}{{ site.title }}</title>
-    <meta name="description" content="{{ site.description }}">
+
+    {% assign page_description = page.summary | default: page.description | default: site.description %}
+    <meta name="description" content="{{ page_description | strip_html | truncatewords: 30 }}">
+
+    <link rel="canonical" href="{{ page.url | absolute_url }}">
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="{{ site.title }}">
+    <meta property="og:title" content="{% if page.title %}{{ page.title }}{% else %}{{ site.title }}{% endif %}">
+    <meta property="og:description" content="{{ page_description | strip_html | truncatewords: 40 }}">
+    <meta property="og:url" content="{{ page.url | absolute_url }}">
+    {% if page.project_image %}
+    <meta property="og:image" content="{{ page.project_image | absolute_url }}">
+    {% elsif site.organization.logo %}
+    <meta property="og:image" content="{{ site.organization.logo | absolute_url }}">
+    {% endif %}
+
+    <!-- Twitter / X Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="{% if page.title %}{{ page.title }}{% else %}{{ site.title }}{% endif %}">
+    <meta name="twitter:description" content="{{ page_description | strip_html | truncatewords: 40 }}">
+
+    <!-- RSS Feed -->
+    <link rel="alternate" type="application/rss+xml" title="{{ site.title }}" href="{{ '/feed.xml' | relative_url }}">
+
     <link rel="stylesheet" href="{{ '/assets/css/main.css' | relative_url }}">
+
+    <!-- JSON-LD: Organisation -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Organization",
+      "name": "{{ site.organization.name }}",
+      "url": "{{ site.organization.website }}",
+      "description": "{{ site.organization.mission | strip_newlines | strip }}",
+      "location": {
+        "@type": "Place",
+        "name": "{{ site.organization.location }}"
+      }
+    }
+    </script>
   </head>
   <body class="wiki-body">
+    <a href="#content" class="skip-link">Skip to main content</a>
+
     <div class="wiki-topbar">
       <div class="page-wrap wiki-topbar-inner">
         <ul class="top-links">
@@ -22,19 +64,19 @@
     <header class="wiki-header page-wrap">
       <div class="wiki-header-inner">
         {% if site.organization.logo %}
-          <img src="{{ site.organization.logo | relative_url }}" alt="{{ site.organization.name }}" class="wiki-logo">
+          <img src="{{ site.organization.logo | relative_url }}" alt="{{ site.organization.name }}" class="wiki-logo" width="40" height="40">
         {% endif %}
         <a class="wiki-brand" href="{{ '/' | relative_url }}">{{ site.organization.name }} WIKI</a>
       </div>
-      <form class="wiki-search" action="{{ '/search/' | relative_url }}" method="get" autocomplete="off">
-        <label for="wiki-search-input" class="sr-only">Search</label>
-        <input id="wiki-search-input" type="text" name="q" placeholder="Search projects" aria-label="Search projects" data-index-url="{{ '/search.json' | relative_url }}" data-results-url="{{ '/search/' | relative_url }}">
-        <div id="wiki-search-results" class="wiki-search-results" aria-live="polite" hidden></div>
+      <form class="wiki-search" role="search" action="{{ '/search/' | relative_url }}" method="get" autocomplete="off">
+        <label for="wiki-search-input" class="sr-only">Search projects</label>
+        <input id="wiki-search-input" type="search" name="q" placeholder="Search projects" aria-label="Search projects" data-index-url="{{ '/search.json' | relative_url }}" data-results-url="{{ '/search/' | relative_url }}">
+        <div id="wiki-search-results" class="wiki-search-results" role="region" aria-label="Search results" aria-live="polite" hidden></div>
       </form>
     </header>
 
     <div class="page-wrap wiki-shell">
-      <aside class="wiki-sidebar" aria-label="Sidebar">
+      <nav class="wiki-sidebar" aria-label="Site navigation">
         <div class="sidebar-box">
           <h2>Navigation</h2>
           <ul>
@@ -52,7 +94,7 @@
             <li><a href="mailto:{{ site.email }}">Contact</a></li>
           </ul>
         </div>
-      </aside>
+      </nav>
 
       <main class="wiki-main" id="content">
         {{ content }}
@@ -61,10 +103,23 @@
 
     <footer class="wiki-footer">
       <div class="page-wrap">
-        <p>This page was generated with Jekyll for {{ site.organization.name }}.</p>
-        <p><a href="{{ site.organization.website }}" target="_blank" rel="noopener">{{ site.organization.website }}</a> · {{ site.organization.tagline }}</p>
+        <div class="wiki-footer-inner">
+          <div>
+            <p class="wiki-footer-brand">{{ site.organization.name }} WIKI</p>
+            <p class="wiki-footer-tagline">{{ site.organization.tagline }}</p>
+          </div>
+          <nav class="wiki-footer-links" aria-label="Footer navigation">
+            <a href="{{ '/' | relative_url }}">Home</a>
+            <a href="{{ '/' | relative_url }}#active-projects">Projects</a>
+            <a href="{{ '/publications/' | relative_url }}">Publications</a>
+            <a href="{{ site.organization.website }}" target="_blank" rel="noopener">IAIRO.ai</a>
+            <a href="mailto:{{ site.email }}">Contact</a>
+          </nav>
+        </div>
+        <p>© {{ 'now' | date: "%Y" }} {{ site.organization.name }}. Generated with Jekyll.</p>
       </div>
     </footer>
+
     <script src="https://unpkg.com/lunr/lunr.min.js" defer></script>
     <script src="{{ '/assets/js/search.js' | relative_url }}" defer></script>
   </body>

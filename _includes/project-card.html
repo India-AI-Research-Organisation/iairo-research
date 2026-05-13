@@ -1,0 +1,28 @@
+{% assign project = include.project %}
+{% assign variant = include.variant | default: "default" %}
+
+<article class="project-card project-card--{{ variant }}" data-searchable="project" data-title="{{ project.title }}" data-area="{{ project.area }}" data-summary="{{ project.summary }}">
+  <div class="project-card-top">
+    <p class="project-card-area">{{ project.area }}</p>
+    {% if project.featured %}
+      <span class="project-badge">Featured</span>
+    {% endif %}
+  </div>
+
+  <h3 class="project-card-title">
+    <a href="{{ project.url | relative_url }}">{{ project.title }}</a>
+  </h3>
+
+  {% if project.summary %}
+    <p class="project-card-summary">{{ project.summary }}</p>
+  {% endif %}
+
+  <div class="project-card-bottom">
+    {% if project.duration %}
+      <span class="project-card-duration">{{ project.duration }}</span>
+    {% endif %}
+    {% if project.external_link %}
+      <a class="project-card-link" href="{{ project.external_link }}" target="_blank" rel="noopener">Resource</a>
+    {% endif %}
+  </div>
+</article>

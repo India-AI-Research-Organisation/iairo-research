@@ -34,14 +34,14 @@ title: Publications
           <h3>{{ year_block.year }}</h3>
           <div class="papers-list">
             {% for paper in year_block.items %}
-              <div class="paper-entry">
-                <p class="paper-title">
+              <article class="paper-entry">
+                <h3 class="paper-title">
                   {% if paper.url %}
                     <a href="{{ paper.url }}" target="_blank" rel="noopener">{{ paper.title }}</a>
                   {% else %}
                     {{ paper.title }}
                   {% endif %}
-                </p>
+                </h3>
                 <p class="paper-meta">
                   <span class="paper-authors">{{ paper.authors }}</span> —
                   <span class="paper-venue"><em>{{ paper.venue }}</em></span>
@@ -49,7 +49,7 @@ title: Publications
                 {% if paper.abstract %}
                   <p class="paper-abstract">{{ paper.abstract }}</p>
                 {% endif %}
-              </div>
+              </article>
             {% endfor %}
           </div>
         {% endfor %}

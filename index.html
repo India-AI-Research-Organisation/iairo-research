@@ -5,35 +5,38 @@ title: IAIRO Projects
 
 {% assign active_projects = site.projects | where: "status", "active" | sort: "order" %}
 {% assign archived_projects = site.projects | where: "status", "archived" | sort: "order" %}
+{% assign featured_projects = active_projects | where: "featured", true %}
+{% assign featured_project = featured_projects | first %}
 
-<article class="wiki-article">
+<article class="wiki-article home-article">
   <p class="wiki-jump">Jump to: <a href="#navigation-menu">navigation</a>, <a href="#search">search</a></p>
-  <h1>{{ site.organization.name }} WIKI</h1>
+  <section class="home-hero">
+    <div class="home-hero-copy">
+      <p class="section-eyebrow">Research programs</p>
+      <h1>{{ site.organization.name }} WIKI</h1>
+      <p class="home-hero-lead">{{ site.hero.subheading }}</p>
+      <p class="home-hero-body">{{ site.organization.mission }}</p>
+      <div class="home-hero-actions">
+        <a class="button-primary" href="{{ site.organization.website }}" target="_blank" rel="noopener">Visit IAIRO</a>
+        <a class="button-secondary" href="#projects-and-themes">Browse projects</a>
+      </div>
+    </div>
 
-  <p>
-    <a href="{{ site.organization.website }}" target="_blank" rel="noopener">{{ site.organization.name }}</a>
-    is a research organization focused on {{ site.organization.tagline | downcase }}.
-  </p>
-
-  <p>{{ site.hero.subheading }}</p>
-
-  <div class="wiki-infobox">
-    <table>
-      <tbody>
-        <tr>
-          <th colspan="2">{{ site.organization.name }} Research Projects</th>
-        </tr>
-        <tr>
-          <td>Configured by</td>
-          <td>{{ site.organization.name | downcase }}</td>
-        </tr>
-        <tr>
-          <td>Web</td>
-          <td><a href="{{ site.organization.website }}" target="_blank" rel="noopener">{{ site.organization.website }}</a></td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
+    <dl class="home-hero-facts" aria-label="Site summary">
+      <div class="home-fact">
+        <dt>Active projects</dt>
+        <dd>{{ active_projects.size }}</dd>
+      </div>
+      <div class="home-fact">
+        <dt>Archived resources</dt>
+        <dd>{{ archived_projects.size }}</dd>
+      </div>
+      <div class="home-fact">
+        <dt>Research focus</dt>
+        <dd>{{ site.organization.tagline }}</dd>
+      </div>
+    </dl>
+  </section>
 
   <div class="wiki-toc" id="navigation-menu">
     <h2>Contents</h2>
@@ -46,41 +49,71 @@ title: IAIRO Projects
     </ol>
   </div>
 
-  <h2 id="projects-and-themes">Projects and Themes</h2>
+  <section class="section-card" id="projects-and-themes">
+    <div class="section-heading">
+      <p class="section-eyebrow">Projects and themes</p>
+      <h2>Specialized systems, grounded AI, and applied research</h2>
+      <p>Reusable project cards keep the site modular while the visual language stays consistent across the research portfolio.</p>
+    </div>
 
-  <h3 id="active-projects">Active Projects</h3>
-  {% if active_projects.size > 0 %}
-    <ul class="wiki-list">
-      {% for project in active_projects %}
-        <li data-searchable="project" data-title="{{ project.title }}" data-area="{{ project.area }}" data-summary="{{ project.summary }}">
-          <a href="{{ project.url | relative_url }}">{{ project.title }}</a>
-          {% if project.duration %}, {{ project.duration }}{% endif %}
-          {% if project.summary %}: {{ project.summary }}{% endif %}
-        </li>
-      {% endfor %}
-    </ul>
-  {% else %}
-    <p>No active projects found.</p>
-  {% endif %}
+    {% if featured_project %}
+      <div class="featured-project">
+        <div class="section-eyebrow">Featured platform</div>
+        {% include project-card.html project=featured_project variant="featured" %}
+      </div>
+    {% endif %}
 
-  <h3 id="archived-projects">Archived Projects and Resources</h3>
-  {% if archived_projects.size > 0 %}
-    <ul class="wiki-list">
-      {% for project in archived_projects %}
-        <li data-searchable="project" data-title="{{ project.title }}" data-area="{{ project.area }}" data-summary="{{ project.summary }}">
-          <a href="{{ project.url | relative_url }}">{{ project.title }}</a>
-          {% if project.duration %}, {{ project.duration }}{% endif %}
-          {% if project.summary %}: {{ project.summary }}{% endif %}
-        </li>
-      {% endfor %}
-    </ul>
-  {% else %}
-    <p>No archived projects found.</p>
-  {% endif %}
+    <h3 id="active-projects">Active Projects</h3>
+    {% if active_projects.size > 0 %}
+      <div class="project-grid">
+        {% for project in active_projects %}
+          {% unless featured_project and project.title == featured_project.title %}
+            {% include project-card.html project=project variant="default" %}
+          {% endunless %}
+        {% endfor %}
+      </div>
+    {% else %}
+      <p>No active projects found.</p>
+    {% endif %}
 
-  <h2 id="instructions-for-authors">Instructions for Authors</h2>
-  <p>
-    Create or edit files in the <strong>_projects</strong> folder. Each file should include project front matter
-    fields such as title, summary, area, status, and duration.
-  </p>
+    <h3 id="archived-projects">Archived Projects and Resources</h3>
+    {% if archived_projects.size > 0 %}
+      <div class="project-grid project-grid--compact">
+        {% for project in archived_projects %}
+          {% include project-card.html project=project variant="compact" %}
+        {% endfor %}
+      </div>
+    {% else %}
+      <p>No archived projects found.</p>
+    {% endif %}
+  </section>
+
+  <section class="section-card" id="instructions-for-authors">
+    <details class="author-instructions">
+      <summary class="author-instructions-summary">
+        <span class="section-eyebrow">For contributors</span>
+        <span class="author-instructions-title">Adding or editing projects</span>
+      </summary>
+      <div class="author-instructions-body">
+        <p>Create or edit Markdown files in the <strong>_projects/</strong> folder. Each file requires a YAML front matter block at the top. The fields are:</p>
+        <ul>
+          <li><strong>title</strong> — Full project title (required)</li>
+          <li><strong>summary</strong> — One-sentence description shown on cards and in search (required)</li>
+          <li><strong>area</strong> — Research area label, e.g. <em>Embodied AI</em> (required)</li>
+          <li><strong>status</strong> — <code>active</code> or <code>archived</code> (required)</li>
+          <li><strong>duration</strong> — Date range, e.g. <em>2025 – Present</em></li>
+          <li><strong>order</strong> — Integer controlling display order; lower numbers appear first</li>
+          <li><strong>featured</strong> — Set <code>true</code> on at most one active project to highlight it</li>
+          <li><strong>external_link</strong> — URL to an external resource or demo</li>
+          <li><strong>contact</strong> — Email address for the project lead</li>
+          <li><strong>paper_key</strong> — Key matching an entry in <code>_data/papers.yml</code> to link publications</li>
+          <li><strong>youtube_id</strong> — YouTube video ID (the part after <code>?v=</code>) for an embedded demo</li>
+          <li><strong>slides_url</strong> — Google Slides "Publish to web" embed URL for inline slides</li>
+          <li><strong>slides_link</strong> — Direct URL to slides (opens in new tab)</li>
+          <li><strong>gallery</strong> — List of images; each entry needs <code>src</code>, <code>alt</code>, and optional <code>caption</code></li>
+        </ul>
+        <p>See the <a href="{{ site.organization.website }}" target="_blank" rel="noopener">README</a> for full setup instructions.</p>
+      </div>
+    </details>
+  </section>
 </article>

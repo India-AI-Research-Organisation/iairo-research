@@ -4,50 +4,128 @@ layout: default
 
 <article class="wiki-article project-article">
   {% assign project_paper_key = page.paper_key | default: page.slug %}
-  <p class="wiki-jump">Jump to: <a href="#project-overview">overview</a>, <a href="#project-details">details</a>{% if site.data.papers.papers[project_paper_key] %}, <a href="#publications">publications</a>{% endif %}</p>
-  <h1>{{ page.title }}</h1>
+  <p class="wiki-jump">Jump to: <a href="#project-overview">overview</a>, <a href="#project-details">details</a>{% if page.youtube_id or page.slides_url or page.slides_link or page.gallery %}, <a href="#media">media</a>{% endif %}{% if site.data.papers.papers[project_paper_key] %}, <a href="#publications">publications</a>{% endif %}</p>
+
+  <section class="project-hero">
+    <div class="project-hero-copy">
+      <p class="section-eyebrow">{{ page.area }}</p>
+      <h1>{{ page.title }}</h1>
+      <p class="project-hero-summary">{{ page.summary }}</p>
+      {% if page.external_link %}
+        <div class="home-hero-actions">
+          <a class="button-primary" href="{{ page.external_link }}" target="_blank" rel="noopener">Project resource</a>
+        </div>
+      {% endif %}
+    </div>
+
+    {% include project-meta.html page=page %}
+  </section>
 
   {% if page.project_image %}
     <figure class="project-hero-image-wrap">
-      <img class="project-hero-image" src="{{ page.project_image | relative_url }}" alt="{{ page.project_image_alt | default: page.title }}">
+      <img class="project-hero-image" src="{{ page.project_image | relative_url }}" alt="{{ page.project_image_alt | default: page.title }}" loading="lazy" width="400" height="300">
       {% if page.project_image_caption %}
         <figcaption>{{ page.project_image_caption }}</figcaption>
       {% endif %}
     </figure>
   {% endif %}
 
-  <div class="wiki-toc">
-    <h2>Project Information</h2>
-    <ul>
-      <li><strong>Area:</strong> {{ page.area }}</li>
-      <li><strong>Status:</strong> {{ page.status | capitalize }}</li>
-      <li><strong>Duration:</strong> {{ page.duration }}</li>
-      {% if page.research_lead %}
-         <li><strong>Research Lead:</strong> {{ page.research_lead }}</li>
+  <section class="section-card">
+    <h2 id="project-overview">Overview</h2>
+    <p>{{ page.summary }}</p>
+
+    <h2 id="project-details">Details</h2>
+    {{ content }}
+  </section>
+
+  {% if page.youtube_id or page.slides_url or page.slides_link or page.gallery %}
+  <section class="section-card project-media-section">
+    <h2 id="media">Media</h2>
+
+    {% if page.youtube_id %}
+    <div class="media-block">
+      <h3 class="media-label">Demo Video</h3>
+      <div class="video-wrap">
+        <iframe
+          src="https://www.youtube-nocookie.com/embed/{{ page.youtube_id }}"
+          title="{{ page.title }} — demo video"
+          frameborder="0"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allowfullscreen>
+        </iframe>
+      </div>
+    </div>
+    {% endif %}
+
+    {% if page.slides_url %}
+    <div class="media-block">
+      <h3 class="media-label">Slides</h3>
+      <div class="slides-wrap">
+        <iframe
+          src="{{ page.slides_url }}"
+          title="{{ page.title }} — slides"
+          frameborder="0"
+          allowfullscreen>
+        </iframe>
+      </div>
+      {% if page.slides_link %}
+      <a class="media-external-link" href="{{ page.slides_link }}" target="_blank" rel="noopener">Open slides in new tab →</a>
       {% endif %}
-        {% if page.contact %}
-          <li><strong>Contact:</strong>
-            {% if page.contact contains "@" %}
-              <a href="mailto:{{ page.contact }}">{{ page.contact }}</a>
-            {% else %}
-              {{ page.contact }}
-            {% endif %}
-          </li>
-        {% endif %}
-      {% if page.external_link %}
-        <li><strong>External link:</strong> <a href="{{ page.external_link }}" target="_blank" rel="noopener">Project Resource</a></li>
-      {% endif %}
-    </ul>
-  </div>
+    </div>
+    {% elsif page.slides_link %}
+    <div class="media-block">
+      <h3 class="media-label">Slides</h3>
+      <a class="button-secondary" href="{{ page.slides_link }}" target="_blank" rel="noopener">View slides →</a>
+    </div>
+    {% endif %}
 
-  <h2 id="project-overview">Overview</h2>
-  <p>{{ page.summary }}</p>
+    {% if page.gallery %}
+    <div class="media-block">
+      <h3 class="media-label">Gallery</h3>
+      <div class="project-gallery">
+        {% for image in page.gallery %}
+        <figure class="gallery-item">
+          <img
+            src="{{ image.src | relative_url }}"
+            alt="{{ image.alt | default: page.title }}"
+            class="gallery-img"
+            loading="lazy">
+          {% if image.caption %}
+          <figcaption class="gallery-caption">{{ image.caption }}</figcaption>
+          {% endif %}
+        </figure>
+        {% endfor %}
+      </div>
+    </div>
+    {% endif %}
+  </section>
+  {% endif %}
 
-  <h2 id="project-details">Details</h2>
-  {{ content }}
+  <section class="section-card">
+    <h2 id="publications">Publications</h2>
+    <p><a href="{{ '/publications/' | relative_url }}#{{ project_paper_key }}">View all publications for this project</a></p>
 
-  <h2 id="publications">Publications</h2>
-  <p><a href="{{ '/publications/' | relative_url }}#{{ project_paper_key }}">View all publications for this project</a></p>
-
-  <p><a href="{{ '/' | relative_url }}#projects-and-themes">Return to Projects and Themes</a></p>
+    <p><a href="{{ '/' | relative_url }}#projects-and-themes">Return to Projects and Themes</a></p>
+  </section>
 </article>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "ResearchProject",
+  "name": "{{ page.title | strip_html }}",
+  "description": "{{ page.summary | strip_html | strip_newlines | strip }}",
+  "url": "{{ page.url | absolute_url }}",
+  "keywords": "{{ page.area }}",
+  {% if page.duration %}"temporalCoverage": "{{ page.duration }}",{% endif %}
+  "parentOrganization": {
+    "@type": "Organization",
+    "name": "{{ site.organization.name }}",
+    "url": "{{ site.organization.website }}"
+  }{% if page.contact %},
+  "contactPoint": {
+    "@type": "ContactPoint",
+    "email": "{{ page.contact }}"
+  }{% endif %}
+}
+</script>

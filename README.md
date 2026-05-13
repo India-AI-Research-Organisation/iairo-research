@@ -1,62 +1,82 @@
-# IAIRO Projects Site (Jekyll + GitHub Pages)
+# IAIRO Projects Wiki (Jekyll + GitHub Pages)
 
-This repository contains a projects-focused research lab website template inspired by academic lab Jekyll themes (including the `rar-ensemble/lab_site` style), adapted for **IAIRO**.
-
-## What this template includes
-
-- Projects-only information architecture (no people/publications pages by default)
-- Collection-based project entries in `_projects/`
-- Project detail pages generated automatically
-- Configurable site metadata and hero content in `_config.yml`
-- GitHub Pages compatible dependencies
+Research lab wiki for IAIRO. Tracks active and archived projects, publications, and media (demo videos, slides, image galleries).
 
 ## Local development
 
-1. Install Ruby and Bundler.
-2. Install dependencies:
+```bash
+bundle install
+bundle exec jekyll serve
+# → http://127.0.0.1:4000
+```
 
-   ```bash
-   bundle install
-   ```
+## Adding a project
 
-3. Run locally:
+Create a Markdown file in `_projects/`. The filename sets the URL slug (e.g. `_projects/2026-my-project.md` → `/projects/2026-my-project/`).
 
-   ```bash
-   bundle exec jekyll serve
-   ```
-
-4. Open `http://127.0.0.1:4000`.
-
-## Customization
-
-- Global content and branding: `_config.yml`
-- Homepage layout and project grouping: `index.html`
-- Styling: `assets/css/main.scss`
-- Project entries: `_projects/*.md`
-
-### Add a new project
-
-Create a file in `_projects/` (for example, `_projects/2026-05-01-new-project.md`) with front matter similar to:
+### Front matter reference
 
 ```yaml
 ---
-title: New Project Name
-summary: One-line overview shown on cards.
-area: Robotics
-status: active
-featured: false
-duration: 2026 - Present
- contact: contact@iairo.ai
-order: 30
-external_link: https://example.com
+title: Project Title          # required
+summary: One-line description # required — shown on cards and used for SEO description
+area: Embodied AI             # required — research area label
+status: active                # required — "active" or "archived"
+duration: 2026 – Present      # date range shown in the dossier
+order: 10                     # integer; lower numbers appear first in the grid
+featured: false               # set true on at most one active project to pin it above the grid
+contact: name@iairo.ai        # project lead email (must contain "@" to render as a link)
+external_link: https://...    # link to external resource or demo
+paper_key: my-project         # key matching an entry in _data/papers.yml to link publications
+
+# Media (all optional — remove unused lines)
+youtube_id: dQw4w9WgXcQ       # YouTube video ID (part after ?v=)
+slides_url: https://docs.google.com/presentation/d/ID/embed  # embeds slides inline
+slides_link: https://docs.google.com/presentation/d/ID       # "open in new tab" link
+gallery:
+  - src: /assets/images/my-fig1.png
+    alt: Architecture diagram
+    caption: System overview (optional)
+  - src: /assets/images/my-fig2.png
+    alt: Results chart
 ---
 
-Detailed markdown description here.
+Markdown body goes here. Supports headings, lists, code blocks, etc.
 ```
+
+### Archiving a project
+
+Change `status: active` to `status: archived`. The project moves to the Archived section automatically.
+
+## Adding publications
+
+Edit `_data/papers.yml`. The `paper_key` in a project file must match a top-level key here:
+
+```yaml
+papers:
+  my-project:
+    - year: 2025
+      items:
+        - title: "Paper Title"
+          authors: "A. Author, B. Author"
+          venue: "NeurIPS 2025"
+          url: https://arxiv.org/abs/...
+          abstract: "Optional abstract text."
+```
+
+## Customisation
+
+| File | Purpose |
+|---|---|
+| `_config.yml` | Site title, org name, logo, mission, hero text |
+| `assets/css/main.scss` | All styles (CSS custom properties at the top) |
+| `_layouts/default.html` | Global HTML shell (head, topbar, sidebar, footer) |
+| `_layouts/project.html` | Individual project page template |
+| `_includes/project-card.html` | Card component used in the grid |
+| `_includes/project-meta.html` | Dossier sidebar on project pages |
 
 ## Deploy to GitHub Pages
 
-1. Push this repository to GitHub.
-2. In repository settings, enable **Pages** for the default branch root.
-3. If hosted under `username.github.io/repo-name`, set `baseurl: "/repo-name"` in `_config.yml`.
-4. Commit and push changes.
+1. Push to GitHub.
+2. Settings → Pages → Deploy from branch (`main`, root).
+3. If hosted at `username.github.io/repo-name`, set `baseurl: "/repo-name"` in `_config.yml`.
